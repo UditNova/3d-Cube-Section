@@ -1,0 +1,292 @@
+:root {
+  --bg-canvas: #ecece9;
+  --text-ink: #111111;
+  --text-muted: #5c5c58;
+  --bg-watermark: #dfdfd9;
+  --cube-size: clamp(200px, 24vw, 310px);
+  --cube-half: calc(var(--cube-size) / 2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.page-shell {
+  width: 100%;
+  background-color: var(--bg-canvas);
+}
+
+/* =========================================
+   1. ABOVE SECTION
+========================================= */
+.section-above {
+  min-height: 100vh;
+  padding: 2rem clamp(1.5rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.top-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.above-center {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.hero-heading {
+  font-size: clamp(2rem, 4.6vw, 4rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.cue-line {
+  width: 1px;
+  height: 36px;
+  background-color: var(--text-ink);
+  opacity: 0.35;
+}
+
+/* =========================================
+   2. 3D CUBE SECTION + PARALLAX BACKGROUND
+========================================= */
+.section-cube-track {
+  position: relative;
+  height: 320vh;
+  background-color: var(--bg-canvas);
+}
+
+.cube-sticky-viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Giant Background Typography */
+.cube-bg-typography {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.bg-word {
+  font-size: clamp(5rem, 16vw, 15rem);
+  font-weight: 800;
+  line-height: 0.88;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  color: var(--bg-watermark);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* Centered 3D Stage & Cube */
+.cube-scene {
+  position: relative;
+  z-index: 2;
+  margin: auto;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  perspective: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cube-object {
+  position: relative;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.cube-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.8rem, 1.6vw, 1.25rem);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+/* Four vertical faces positioned around Y-axis */
+.cube-face--1 {
+  transform: rotateY(0deg) translateZ(var(--cube-half));
+}
+
+.cube-face--2 {
+  transform: rotateY(90deg) translateZ(var(--cube-half));
+}
+
+.cube-face--3 {
+  transform: rotateY(180deg) translateZ(var(--cube-half));
+}
+
+.cube-face--4 {
+  transform: rotateY(270deg) translateZ(var(--cube-half));
+}
+
+/* Face light / dark contrast themes matching reference */
+.cube-face--light {
+  background: linear-gradient(145deg, #c9c9c5 0%, #a9a9a4 100%);
+  color: #111111;
+}
+
+.cube-face--dark {
+  background: #09090a;
+  color: #f4f4f2;
+}
+
+.face-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.face-tag {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  opacity: 0.7;
+}
+
+.face-card {
+  background: #ffffff;
+  color: #111111;
+  padding: 0.55rem;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.face-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.08);
+}
+
+.face-card-meta h2 {
+  font-size: clamp(0.75rem, 1vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.face-card-meta p {
+  font-size: 0.65rem;
+  color: #555555;
+  margin-top: 0.1rem;
+}
+
+.cube-caption {
+  position: absolute;
+  bottom: 2.25rem;
+  z-index: 3;
+  max-width: 340px;
+  text-align: center;
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-ink);
+  padding: 0 1rem;
+}
+
+/* =========================================
+   3. BELOW SECTION
+========================================= */
+.section-below {
+  min-height: 100vh;
+  padding: 4rem clamp(1.5rem, 4vw, 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.below-content {
+  max-width: 680px;
+}
+
+.below-heading {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  margin-bottom: 1.25rem;
+}
+
+.below-copy {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
